@@ -1,6 +1,6 @@
 /* eslint valid-jsdoc: "off" */
 'use strict';
-const mysql=require("./mysql")
+const sequelize=require("./sequelize")
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -10,7 +10,7 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {
-    mysql
+    sequelize
   };
 
   // use for cookie sign key, should change to your own and keep security
