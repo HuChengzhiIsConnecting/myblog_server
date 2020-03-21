@@ -10,15 +10,26 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {
-    sequelize
+    sequelize,
+    jwt: {
+      cert: 'hczlovesjl' // jwt秘钥
+    },
+    security: {
+      csrf: {
+        enable: false,
+      },
+ }
   };
-
+  config.qiniu={
+    ak:"spWD2TGZEn0Q2UZBhOG8hYWDp0UIqGvFJOhxk6dW",
+    sk:"4dAi2deU2WOT9ZikCGWjesRVedXNBLl_T7F_k4xz"
+  }
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1584628821884_177';
 
   // add your middleware config here
   config.middleware = [];
-
+  
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

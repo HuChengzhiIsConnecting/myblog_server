@@ -14,6 +14,18 @@ class BackendController extends Controller {
     });
     this.ctx.body = article;
   }
+  async getQiniuToken(){
+    const { ctx } = this;
+    let result = {
+      code: 200,
+      data: {},
+      msg: '获取token成功'
+    };
+    let uploadToken = await ctx.service.backend.getQiniuToken()
+    result.data.token = uploadToken
+    ctx.body = result
+
+  }
 }
 
 module.exports = BackendController;

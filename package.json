@@ -19,7 +19,9 @@
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
-    "eslint-config-egg": "^7.1.0"
+    "eslint-config-egg": "^7.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "qiniu": "^7.3.0"
   },
   "engines": {
     "node": ">=10.0.0"
