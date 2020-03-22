@@ -14,6 +14,17 @@ class BackendController extends Controller {
     });
     this.ctx.body = article;
   }
+  async cateList() {
+    const { ctx } = this;
+    let cate = await ctx.service.backend.cateList()
+    ctx.body = cate;
+  }
+  async createCate(){
+    const { ctx } = this;
+    let {name}=ctx.request.body;
+    let res = await ctx.service.backend.createCate(name)
+    ctx.body = res;
+  }
   async getQiniuToken(){
     const { ctx } = this;
     let result = {
