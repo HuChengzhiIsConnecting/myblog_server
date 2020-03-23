@@ -4,48 +4,47 @@ class BackendService extends Service {
   async cateList() {
     const { ctx } = this
     let result = await ctx.model.Cate.findAll({
-      where:{
-        status:1
+      where: {
+        status: 1
       },
-      order:[
-        ['created_at','desc']
+      order: [
+        ['created_at', 'desc']
       ],
-      attributes:['id','name']
+      attributes: ['id', 'name']
     });
-    if(!result.length){
+    if (!result.length) {
       return {
-        code:201,
-        msg:'分类为空',
-        data:{},
+        code: 201,
+        msg: '分类为空',
+        data: {},
       }
     }
     return {
-      code:200,
-        msg:'操作成功',
-        data:result,
+      code: 200,
+      msg: '操作成功',
+      data: result,
     }
   }
-  async createCate(name){
+  async createCate(name) {
     const { ctx } = this
-    let result=await ctx.model.Cate.findOrCreate({where: {name}})
-    if(result[1]===true){
+    let result = await ctx.model.Cate.findOrCreate({ where: { name } })
+    if (result[1] === true) {
       //不存在，创建成功
       return {
-        code:200,
-        data:{},
-        msg:"创建成功"
+        code: 200,
+        data: {},
+        msg: "创建成功"
       }
     }
-    else{
+    else {
       //存在
       return {
-        code:201,
-        data:{},
-        msg:"该分类已存在"
+        code: 201,
+        data: {},
+        msg: "该分类已存在"
       }
     }
   }
-
   // 生成七牛token
   async getQiniuToken() {
     const { app } = this
