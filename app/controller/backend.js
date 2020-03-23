@@ -6,7 +6,7 @@ class BackendController extends Controller {
   async articleList() {
     const { ctx } = this;
     const article = await ctx.model.Article.findAndCountAll({
-      offset:0 , // 前端分页组件传来的起始偏移量（pageNum-1）
+      offset: 0, // 前端分页组件传来的起始偏移量（pageNum-1）
       limit: 1,//一页显示多少条
       include: {
         model: this.app.model.Cate
@@ -19,13 +19,13 @@ class BackendController extends Controller {
     let cate = await ctx.service.backend.cateList()
     ctx.body = cate;
   }
-  async createCate(){
+  async createCate() {
     const { ctx } = this;
-    let {name}=ctx.request.body;
+    let { name } = ctx.request.body;
     let res = await ctx.service.backend.createCate(name)
     ctx.body = res;
   }
-  async getQiniuToken(){
+  async getQiniuToken() {
     const { ctx } = this;
     let result = {
       code: 200,
