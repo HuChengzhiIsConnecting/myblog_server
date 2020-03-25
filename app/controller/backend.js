@@ -1,7 +1,6 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-
 class BackendController extends Controller {
   async articleList() {
     const { ctx } = this;
