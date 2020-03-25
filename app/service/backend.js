@@ -59,5 +59,4 @@ class BackendService extends Service {
     return uploadToken
   }
 }
-
 module.exports = BackendService
