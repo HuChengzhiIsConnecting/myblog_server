@@ -24,6 +24,17 @@ class BackendController extends Controller {
     let res = await ctx.service.backend.createCate(name)
     ctx.body = res;
   }
+  async tagList() {
+    const { ctx } = this;
+    let tag = await ctx.service.backend.tagList()
+    ctx.body = tag;
+  }
+  async createTag() {
+    const { ctx } = this;
+    let { name } = ctx.request.body;
+    let res = await ctx.service.backend.createTag(name)
+    ctx.body = res;
+  }
   async getQiniuToken() {
     const { ctx } = this;
     let result = {
