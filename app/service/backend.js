@@ -27,6 +27,9 @@ class BackendService extends Service {
   }
   async createArticle({ title,cate_id,tags_group,html}) {
     const { ctx } = this
+    if(!cate_id){
+      cate_id=null
+    }
     let result = await ctx.model.Article.create({
       title,
       content:html,
