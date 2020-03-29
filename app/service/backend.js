@@ -25,6 +25,23 @@ class BackendService extends Service {
       data: result,
     }
   }
+  async createArticle({ title,cate_id,tags_group,html}) {
+    const { ctx } = this
+    let result = await ctx.model.Article.create({
+      title,
+      content:html,
+      cate_id,
+      tags_group,
+      status:1,
+      view_num:0
+    });
+    console.log(result)
+    return {
+      code: 200,
+      msg: '操作成功',
+      data: result,
+    }
+  }
   async createCate(name) {
     const { ctx } = this
     let result = await ctx.model.Cate.findOrCreate({ where: { name } })
