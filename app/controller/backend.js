@@ -13,6 +13,11 @@ class BackendController extends Controller {
     });
     this.ctx.body = article;
   }
+  async createArticle() {
+    const { ctx } = this;
+    let res = await ctx.service.backend.createArticle(ctx.request.body)
+    this.ctx.body = res;
+  }
   async cateList() {
     const { ctx } = this;
     let cate = await ctx.service.backend.cateList()
