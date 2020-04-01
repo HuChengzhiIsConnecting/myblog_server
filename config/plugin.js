@@ -4,3 +4,7 @@ module.exports.sequelize= {
   enable: true,
   package: 'egg-sequelize',
 }
+module.exports.nunjucks = {
+  enable: true,
+  package: 'egg-view-nunjucks'
+}
