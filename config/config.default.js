@@ -29,7 +29,7 @@ module.exports = appInfo => {
     },
     static : {
       prefix: '/',
-      dir: [path.join(app.baseDir, 'app/public/frontend'), path.join(app.baseDir, 'app/public/backend')],// 多静态文件入口
+      dir: [path.join(appInfo.baseDir, 'app/public/frontend'), path.join(appInfo.baseDir, 'app/public/backend')],// 多静态文件入口
       maxAge: 31536000,
     }
   };
