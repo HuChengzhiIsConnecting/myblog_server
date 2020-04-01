@@ -5,7 +5,7 @@ const Controller = require('egg').Controller;
 class FrontendController extends Controller {
   async index() {
     const { ctx } = this;
-    await this.ctx.render('index');
+    await this.ctx.render('/frontend/index');
 
   }
   async articleListByDate() {

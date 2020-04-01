@@ -2,6 +2,10 @@
 
 const Controller = require('egg').Controller;
 class BackendController extends Controller {
+  async index() {
+    const { ctx } = this;
+    await this.ctx.render('/backend/index');
+  }
   async articleList() {
     const { ctx } = this;
     const article = await ctx.model.Article.findAndCountAll({
