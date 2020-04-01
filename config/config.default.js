@@ -1,6 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 'use strict';
-const sequelize=require("./sequelize")
+const sequelize_dev=require("./sequelize")
+const sequelize_prod=require("./sequelize_prod")
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -10,7 +11,7 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {
-    sequelize,
+    sequelize:appInfo.env==='local'?sequelize_dev:sequelize_prod,
     jwt: {
       cert: 'hczlovesjl' // jwt秘钥
     },
