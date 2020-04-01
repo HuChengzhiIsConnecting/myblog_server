@@ -2,6 +2,7 @@
 'use strict';
 const sequelize_dev = require("./sequelize")
 const sequelize_prod = require("./sequelize_prod")
+const path=require('path')
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -25,7 +26,12 @@ module.exports = appInfo => {
       mapping: {
         '.html': 'nunjucks' //左边写成.html后缀，会自动渲染.html文件
       },
-    }   
+    },
+    static : {
+      prefix: '/',
+      dir: [path.join(app.baseDir, 'app/public/frontend'), path.join(app.baseDir, 'app/public/backend')],// 多静态文件入口
+      maxAge: 31536000,
+    }
   };
   config.qiniu = {
     ak: "spWD2TGZEn0Q2UZBhOG8hYWDp0UIqGvFJOhxk6dW",

@@ -8,3 +8,7 @@ module.exports.nunjucks = {
   enable: true,
   package: 'egg-view-nunjucks'
 }
+module.exports.assets = {
+  enable: true,
+  package: 'egg-view-assets',
+}
