@@ -3,7 +3,7 @@ const moment = require('moment')
 const Controller = require('egg').Controller;
 
 class FrontendController extends Controller {
-  async blogList() {
+  async index() {
     const { ctx } = this;
     ctx.body = 'hi, egg';
   }
