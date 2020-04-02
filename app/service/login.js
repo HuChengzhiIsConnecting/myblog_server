@@ -2,12 +2,12 @@ const Service = require('egg').Service;
 const jwt = require('jsonwebtoken')
 class LoginService extends Service {
   // 登录
-  async login({ username, password}) {
+  async login({ name, password}) {
     const { ctx,app } = this
-    console.log(username, password)
+    console.log(name, password)
     const result = await ctx.model.User.findOne({
         where:{
-            name:username,
+            name,
             password,
             status:1
         }
