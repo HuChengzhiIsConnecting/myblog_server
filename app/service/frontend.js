@@ -48,5 +48,15 @@ class FrontendService extends Service {
     });
    return result;
   }
+  async addViewNum({articleId}){
+    const {ctx,app} = this
+    let res = await ctx.model.Article.increment('view_num',
+    {
+      where:{
+        id:articleId
+      }
+    })
+    return res;
+  }
 }
 module.exports = FrontendService

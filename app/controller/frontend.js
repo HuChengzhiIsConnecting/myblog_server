@@ -8,6 +8,12 @@ class FrontendController extends Controller {
     await this.ctx.render('/frontend/index');
 
   }
+  async addViewNum(){
+    const { ctx } = this;
+    let res = await ctx.service.frontend.addViewNum(ctx.request.body);
+    console.log(res);
+    ctx.body = {code:200,msg:'操作成功',data:res};
+  }
   async articleListByDate() {
     const { ctx } = this;
     let mapData = new Map();
