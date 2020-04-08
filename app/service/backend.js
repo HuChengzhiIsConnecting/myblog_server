@@ -1,5 +1,6 @@
 const Service = require('egg').Service;
 const qiniu = require('qiniu')
+const moment = require('moment')
 class BackendService extends Service {
   async cateList() {
     const { ctx } = this
@@ -30,13 +31,16 @@ class BackendService extends Service {
     if(!cate_id){
       cate_id=null
     }
+    let dateNow=new moment();
     let result = await ctx.model.Article.create({
       title,
       content:html,
       cate_id,
       tags_group,
       status:1,
-      view_num:0
+      view_num:0,
+      created_at:dateNow,
+      updated_at:dateNow
     });
     console.log(result)
     return {
