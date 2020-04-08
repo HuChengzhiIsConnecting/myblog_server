@@ -10,7 +10,9 @@ module.exports = app => {
       created_at: DATE,
       updated_at: DATE,
       view_num:{ type:BIGINT(20),defaultValue:0}
-    },{});
+    },{
+      timestamps: false
+    });
     Article.associate = function() {
       app.model.Article.belongsTo(app.model.Cate, { foreignKey: 'cate_id', targetKey: 'id' });
   }
