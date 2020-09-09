@@ -42,7 +42,15 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = [];
-
+  config.multipart = {
+    /** 文件接收配置 */
+    mode: 'file',
+    fileSize: '100mb',
+    whitelist:[
+      '.pdf'
+    ],
+    /** 文件接收配置 */
+  };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

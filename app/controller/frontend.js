@@ -1,18 +1,21 @@
 'use strict';
 const moment = require('moment')
+const fs = require('fs');
+const PDFParser = require('pdf2json');
+const src = './pdf';
+let pdfParser = new PDFParser(this, 1);
 const Controller = require('egg').Controller;
-
 class FrontendController extends Controller {
   async index() {
     const { ctx } = this;
     await this.ctx.render('/frontend/index');
 
   }
-  async addViewNum(){
+  async addViewNum() {
     const { ctx } = this;
     let res = await ctx.service.frontend.addViewNum(ctx.request.body);
     console.log(res);
-    ctx.body = {code:200,msg:'操作成功',data:res};
+    ctx.body = { code: 200, msg: '操作成功', data: res };
   }
   async articleListByDate() {
     const { ctx } = this;
@@ -37,46 +40,67 @@ class FrontendController extends Controller {
         mapData.set(year, [...mapData.get(year), item]);
       }
     })
-    ctx.body = {code:200,msg:'操作成功',data:[...mapData]};
+    ctx.body = { code: 200, msg: '操作成功', data: [...mapData] };
   }
-  async articleDetail(){
+  async articleDetail() {
     const { ctx } = this;
     let res = await ctx.service.frontend.articleDetail(ctx.query);
-    let cateRes="";
-    let tagsRes=[];
+    let cateRes = "";
+    let tagsRes = [];
     console.log(res);
-    if(!res){
-      return ctx.body={
-        code:201,
-        msg:"文章不存在",
-        data:{}
+    if (!res) {
+      return ctx.body = {
+        code: 201,
+        msg: "文章不存在",
+        data: {}
       }
     }
-    let data={id:res.id,title:res.title,content:res.content,updated_at:res.updated_at,view_num:res.view_num};
-    let cate_id=res.cate_id;
-    let tags_group=!!res.tags_group && res.tags_group.split(',');
-    if(!!cate_id){
+    let data = { id: res.id, title: res.title, content: res.content, updated_at: res.updated_at, view_num: res.view_num };
+    let cate_id = res.cate_id;
+    let tags_group = !!res.tags_group && res.tags_group.split(',');
+    if (!!cate_id) {
       //存在分类的话查询
       cateRes = await ctx.service.frontend.findCateName(cate_id);
-      console.log("cateres:",cateRes)
-      data['cate_name']=cateRes.name;
+      console.log("cateres:", cateRes)
+      data['cate_name'] = cateRes.name;
     }
-    if(tags_group){
+    if (tags_group) {
       //存在标签的话
-      tags_group=tags_group.map((item)=>{
+      tags_group = tags_group.map((item) => {
         return parseInt(item)
       })
       tagsRes = await ctx.service.frontend.findTagsName(tags_group);
-      console.log("tags:",tagsRes);
-      data['tags_name']=tagsRes.map((item)=>{
+      console.log("tags:", tagsRes);
+      data['tags_name'] = tagsRes.map((item) => {
         return item.name
       });
     }
-    ctx.body={
-      code:200,
-      msg:'success',
-      data:data
+    ctx.body = {
+      code: 200,
+      msg: 'success',
+      data: data
     };
+  }
+  async uploadFile() {
+    const { ctx } = this;
+    console.log('body=>', ctx.request.body);
+    const file = ctx.request.files[0];
+    console.log('file.filepath=>', file.filepath)
+
+
+      pdfParser.loadPDF(file.filepath);
+      pdfParser.on('pdfParser_dataError', errData => reject(new Error(errData.parserError)));
+      let dataReady = new Promise((resolve,reject)=>{
+        pdfParser.on('pdfParser_dataReady', () => {
+          let data = pdfParser.getRawTextContent();
+          resolve(data)
+          // console.log('data=>', data)
+        })
+      })
+      let datas = await dataReady
+      console.log('data',datas)
+    // console.log('ssss=>', pdfParser.getRawTextContent());
+    ctx.body = { code: 200, msg: '操作成功', data:datas };
   }
 }
 
